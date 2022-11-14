@@ -23,6 +23,10 @@ import RutasCandidato
 import RutasMesa
 import RutasPartido
 import RutasResultado
+import RutasRol
+import RutasPermiso
+import RutasUsuario
+import RutasPermisoRol
 
 
 app.config["JWT_SECRET_KEY"]="super-secret" #Cambiar por el que se conveniente
