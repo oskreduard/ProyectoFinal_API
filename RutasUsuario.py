@@ -46,9 +46,8 @@ def modificarUsuarios(id):
 def deleteUsuario(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}   #Always the same
     url = url_backend_security + '/usuario/'+id                   #Change the URL
-    response = requests.delete(url, headers=headers)                   #Change the Method
-    json = response.json()
-    return jsonify(json)
+    response = requests.delete(url, headers=headers)
+    return {"Msj": "Delete exitoso"}
 
 @app.route("/usuario/<string:id>/rol/<string:id_rol>",methods=['PUT'])
 def AsignarRolUsuario(id,id_rol):                                    #BodyRequest if needed
