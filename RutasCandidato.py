@@ -47,8 +47,8 @@ def eliminarCandidato(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}
     url = url_backend_registraduria + '/candidato/' + id
     response = requests.delete(url, headers=headers)
-    json = response.json()
-    return jsonify(json)
+
+    return {"Msj": "Delete exitoso"}
 
 @app.route("/candidato/<string:id>/partido/<string:id_partido>",methods=['PUT'])
 def asignarPartidoACandidato(id,id_partido):
@@ -57,3 +57,16 @@ def asignarPartidoACandidato(id,id_partido):
     response = requests.put(url, headers=headers)
     json = response.json()
     return jsonify(json)
+@app.route("/candidato/cedula/<string:cedula>",methods=['GET'])
+def buscarCandidatobyCedula(cedula):
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    url = url_backend_registraduria + '/candidato/cedula/' + cedula
+
+    print(url)
+    response = requests.get(url, headers=headers)
+    print(response)
+    json = response.json()
+    if json=={}:
+        return {"Resultado": "No se encuentran el Candidato o el Partido indicados"},401
+    else:
+        return jsonify(json)

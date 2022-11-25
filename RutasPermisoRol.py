@@ -45,6 +45,6 @@ def deletePermisoRol(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}   #Always the same
     url = url_backend_security + '/permiso-rol/'+id                   #Change the URL
     response = requests.delete(url, headers=headers)                   #Change the Method
-    json = response.json()
-    return jsonify(json)
+
+    return {"Msj": "Delete exitoso"}
 
