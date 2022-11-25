@@ -52,6 +52,7 @@ def limpiarURL(url):
     for laParte in partes:
         if re.search('\\d', laParte):
             url = url.replace(laParte, "?")
+    print (url)
     return url
 def validarPermiso(endPoint,metodo,idRol):
     url=dataConfig["url-backend-security"]+"/permiso-rol/validar-permiso/rol/"+str(idRol)

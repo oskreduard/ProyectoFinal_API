@@ -1,3 +1,5 @@
+import re
+
 import requests as requests
 from flask import Flask
 from flask import jsonify
@@ -32,7 +34,21 @@ def getUsuario(id):
     response = requests.get(url, headers=headers)                   #Change the Method
     json = response.json()
     return jsonify(json)
-
+@app.route("/usuario/email/<string:email>",methods=['GET'])
+def getUsuariobyEmail(email):
+    print(email)
+    for l in email:
+        if re.search('\\d', l):
+            email = email.replace(l, "")
+    print(email)
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    url = url_backend_security + '/usuario/email/'+email
+    response = requests.get(url, headers=headers)
+    json = response.json()
+    if response.status_code == 401 or response.status_code == 400:
+        return jsonify({"msg": "Not email found"}), 401
+    else:
+        return jsonify(json)
 @app.route("/usuario/<string:id>",methods=['PUT'])
 def modificarUsuarios(id):
     data = request.get_json()                                       #BodyRequest if needed
@@ -54,5 +70,8 @@ def AsignarRolUsuario(id,id_rol):                                    #BodyReques
     headers = {"Content-Type": "application/json; charset=utf-8"}   #Always the same
     url = url_backend_security + '/usuario/'+id + '/rol/'+id_rol                             #Change the URL
     response = requests.put(url, headers=headers)     #Change the Method
-    json = response.json()
-    return jsonify(json)
+    if response == {}:
+        return jsonify({"msg": "Not email found"}), 401
+    else:
+        json = response.json()
+        return jsonify(json)

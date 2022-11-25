@@ -49,3 +49,16 @@ def eliminarMesa(id):
     response = requests.delete(url, headers=headers)
     json = response.json()
     return jsonify(json)
+
+@app.route("/mesa/numero/<string:numero>",methods=['GET'])
+def buscarMesabyNumero(numero):
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    url = url_backend_registraduria + '/mesa/numero/' + numero
+    print(url)
+    response = requests.get(url, headers=headers)
+    print(response)
+    json = response.json()
+    if json=={}:
+        return {"Resultado": "No se encuentran la mesa"},401
+    else:
+        return jsonify(json)
