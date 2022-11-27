@@ -21,6 +21,7 @@ def crearPermisosRoles(id_rol,id_permiso):
     headers = {"Content-Type": "application/json; charset=utf-8"}   #Always the same
     url = url_backend_security + '/permiso-rol/rol/'+id_rol+'/permiso/'+id_permiso                     #Change the URL
     response = requests.post(url, headers=headers)     #Change the Method
+    print((response))
     json = response.json()
     return jsonify(json)
 
