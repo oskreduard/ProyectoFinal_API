@@ -44,9 +44,12 @@ def before_request_callback():
         if usuario["rol"]is not None:
             tienePersmiso=validarPermiso(endPoint,request.method,usuario["rol"]["_id"])
             if not tienePersmiso:
+                print("Permission denied ", request.path)
                 return jsonify({"message": "Permission denied"}), 401
         else:
+            print("Permission denied ", request.path)
             return jsonify({"message": "Permission denied"}), 401
+
 def limpiarURL(url):
     partes = request.path.split("/")
     for laParte in partes:
